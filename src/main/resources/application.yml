@@ -1,0 +1,27 @@
+spring:
+  application:
+    name: spring-redisson-codec-by-cache
+  r2dbc:
+    url: r2dbc:postgresql://localhost:5436/cache_experiment_db
+    username: postgres
+    password: postgres
+    pool:
+      initial-size: 10
+      max-size: 50
+      validation-query: SELECT 1
+  datasource:
+    url: jdbc:postgresql://localhost:5436/cache_experiment_db
+    username: postgres
+    password: postgres
+    hikari:
+      maximum-pool-size: 50
+      schema: public
+      pool-name: spring-redisson-codec-by-cache
+      connection-test-query: SELECT 1
+  flyway:
+    locations: classpath:db/migration
+    table: _schema_version
+  data:
+    redis:
+      port: 6380
+      host: 127.0.0.1
