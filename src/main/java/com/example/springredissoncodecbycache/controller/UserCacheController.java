@@ -3,6 +3,7 @@ package com.example.springredissoncodecbycache.controller;
 import com.example.springredissoncodecbycache.service.UserCacheService;
 import com.example.springredissoncodecbycache.service.UserReactiveCacheService;
 import com.example.springredissoncodecbycache.service.UserService;
+import jakarta.annotation.PostConstruct;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.util.Assert;
@@ -33,7 +34,7 @@ public class UserCacheController {
                 .collectList()
                 .block();
         Assert.notNull(list, "List is null");
-        list.forEach(userCacheService::toCache);
+        list.forEach(user -> userCacheService.toCacheSync(user, user.getId().toString()));
         final var endTime = Instant.now();
         Duration duration = Duration.between(startTime, endTime);
         log.info("Время выполнения: {} (seconds)", duration.getSeconds());

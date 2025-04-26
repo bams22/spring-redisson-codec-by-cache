@@ -21,7 +21,7 @@ public class RedissonCacheManagerConfig {
     @Bean
     public RedissonClient redissonClient() {
         final var config = new Config();
-        config.setCodec(new UserRedisCodec()).useSingleServer()
+        config.setCodec(new UserProtoRedisCodec()).useSingleServer()
                 .setAddress("redis://localhost:6380")
                 .setDatabase(0);
         return Redisson.create(config);
